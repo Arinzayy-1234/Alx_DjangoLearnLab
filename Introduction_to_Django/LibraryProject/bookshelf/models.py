@@ -8,5 +8,5 @@ class Book(models.Model):
     publication_year = models.IntegerField()    
 
     def __str__(self):
-        return f'Book: {self.title}, Author: {self.author}, Year: {self.publication_year}'
+        return f'BookID {self.id} Book: {self.title}, Author: {self.author}, Year: {self.publication_year}'
 
