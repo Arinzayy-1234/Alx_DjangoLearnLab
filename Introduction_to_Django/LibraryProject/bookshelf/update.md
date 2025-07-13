@@ -13,22 +13,22 @@ from bookshelf.models import Book
 # Retrieve the book instance with the title '1984'.
 # IMPORTANT: If you have multiple books titled '1984', you might need to retrieve
 # by a more specific identifier like its primary key (ID) if known:
-# book_to_update = Book.objects.get(id=YOUR_BOOK_ID)
+# book = Book.objects.get(id=YOUR_BOOK_ID)
 try:
-    book_to_update = Book.objects.get(title='1984')
+    book = Book.objects.get(title='1984')
 except Book.DoesNotExist:
     print("Book with title '1984' not found. It might already be 'Nineteen Eighty-Four'.")
     # If the book might already be updated, you could try fetching it by the new title
-    book_to_update = Book.objects.get(title='Nineteen Eighty-Four')
+    book = Book.objects.get(title='Nineteen Eighty-Four')
     print("Found book with title 'Nineteen Eighty-Four'. Proceeding to verify/re-update.")
 
 
 # Update the title attribute
-book_to_update.title = 'Nineteen Eighty-Four'
+book.title = 'Nineteen Eighty-Four'
 
 # Save the changes to the database
-book_to_update.save()
+book.save()
 
 # Verify the updated title (you would typically print this in the shell)
-print(book_to_update.title)
+print(book.title)
 # Expected output: Nineteen Eighty-Four
