@@ -12,5 +12,5 @@ This is the Python code executed within the Django shell (`python manage.py shel
 from bookshelf.models import Book
 
 # Create a new Book instance and save it to the database
-Book.objects.create(title='The Great Gatsby', author='F. Scott Fitzgerald', publication_year=1925, isbn='978-0743273565')
+Book.objects.create(title='1984', author='"George Orwell"', publication_year=1925, isbn='1949')
 # Expected output: <Book: The Great Gatsby> or a similar object representation confirming creation.
