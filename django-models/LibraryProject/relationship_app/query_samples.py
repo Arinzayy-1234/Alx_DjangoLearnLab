@@ -21,13 +21,10 @@ def run():
     for  books in books_of_jk_rowling_author:
         print(books.title)
 
-    veritas_library = Library.objects.create(name = 'Veritas Library')
-    veritas_library.books.add(book_1,book_2)
 
-    veritas_books = veritas_library.books.all()
 
-    for book in veritas_books:
-        print(f'Vertias Library has the book: {book.title}')
+
+
 
     # --- THIS IS THE ONLY SECTION FOR GETTING/CREATING VERITAS LIBRARY ---
 
