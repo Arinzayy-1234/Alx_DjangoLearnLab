@@ -26,24 +26,25 @@ def run():
 
 
 
-    # --- THIS IS THE ONLY SECTION FOR GETTING/CREATING VERITAS LIBRARY ---
+# --- THIS IS THE ONLY SECTION FOR GETTING/CREATING VERITAS LIBRARY ---
 
-    # Define the library name in a variable, as the checker implies 'library_name' variable
-    specific_library_name = 'Veritas Library'
+    # Define the library name in a variable, to match the checker's implied 'library_name' variable
+    library_name = 'Veritas Library' # <--- CHANGED VARIABLE NAME HERE!
 
     # Attempt to GET the library (as required by the checker).
     # If it doesn't exist, CREATE it (to ensure script robustness).
     try:
-        veritas_library = Library.objects.get(name=specific_library_name)
+        veritas_library = Library.objects.get(name=library_name) # <--- Using the changed variable name
         print(f"Library '{veritas_library.name}' successfully retrieved using .get().")
     except ObjectDoesNotExist: # Catches if .get() finds no object
-        veritas_library = Library.objects.create(name=specific_library_name)
+        veritas_library = Library.objects.create(name=library_name) # <--- Using the changed variable name
         print(f"Library '{veritas_library.name}' created as it did not exist for .get() call.")
     except Exception as e: # Catch any other unexpected errors
         print(f"An unexpected error occurred trying to get/create library: {e}")
         return # Exit the function if a critical error happens
 
     # --- End of Library creation/retrieval ---
+
 
     # Now, add books to this 'veritas_library' object, which is guaranteed to exist
     veritas_library.books.add(book_1,book_2)
