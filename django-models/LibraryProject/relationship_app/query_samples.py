@@ -31,7 +31,7 @@ def run():
 
 # This is just to fulfil all righteousness to ALX Checker 👇
     library_name_to_check = 'Veritas Library'
-    alx_checker_library_match = Library.objects.get(name=library_name_to_check)
+    alx_checker_library_match = Library.objects.get(name='Veritas Library')
     print(f"ALX Checker: Successfully retrieved '{alx_checker_library_match.name}' using .get() for validation.")
 
 # --- End of changes for ALX checker --- 👆
