@@ -176,6 +176,7 @@ CONTENT_SECURITY_POLICY = {
 # Objective: Enforce HTTPS connections for all traffic and use HSTS. 
 
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SECURE_HSTS_SECONDS = 31536000
 
