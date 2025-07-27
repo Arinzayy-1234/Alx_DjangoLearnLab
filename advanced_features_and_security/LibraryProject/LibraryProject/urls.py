@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path( '', include('relationship_app.urls')),  # Include the URLs from relationship_app
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('users.urls')),
+    #path('', include('users.urls')),
+    path('', include('bookshelf.urls')),
 
 ]
 

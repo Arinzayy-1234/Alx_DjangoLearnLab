@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ action }} Book</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        form { border: 1px solid #ccc; padding: 20px; border-radius: 5px; max-width: 500px; margin: 0 auto; }
+        p { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"] { width: calc(100% - 10px); padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        a { text-decoration: none; color: #007bff; margin-left: 10px; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1> {{action}} </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit"> SUBMIT </button>
+        <a href="{% url 'book_list' %}" > Cancel </a>
+    </form>
+</body>
+</html>

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import Permission
+
 
 # Create your models here.
 
@@ -7,7 +9,19 @@ class Book(models.Model):
 
     title = models.CharField(max_length = 200)
     author = models.CharField(max_length = 100)
-    publication_year = models.IntegerField()    
+    publication_year = models.IntegerField()
+
+    class Meta:
+
+        permissions = [
+            ('can_view', 'Can view objects'),
+            ('can_create', 'Can create objects'),
+            ('can_edit', 'Can edit objects'),
+            ('can_delete ','Can delete objects'),
+        ]    
+        verbose_name = 'Book'
+        verbose_name_plural = 'Books'
+
 
     def __str__(self):
         return f'BookID {self.id} Book: {self.title}, Author: {self.author}, Year: {self.publication_year}'

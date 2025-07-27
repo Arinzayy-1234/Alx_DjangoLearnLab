@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .confirm-box { border: 1px solid #dc3545; padding: 20px; border-radius: 5px; max-width: 400px; margin: 0 auto; text-align: center; background-color: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+        button:hover { background-color: #c82333; }
+        a { text-decoration: none; color: #007bff; margin-left: 10px; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="confirm-box">
+        <h1>Confirm Delete</h1>
+        <p>Are you sure you want to delete "{{ book.title }}" by {{ book.author }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete</button>
+            <a href="{% url 'book_list' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+
+{% if perms.users.add_post %}:
+    <a href="{% url 'create_post' %}" > Create New Post </a>
+{% endif %}

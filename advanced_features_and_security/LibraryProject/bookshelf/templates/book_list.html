@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 10px; border: 1px solid #eee; padding: 10px; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+        .button { display: inline-block; padding: 8px 15px; background-color: #007bff; color: white; border-radius: 5px; }
+        .button:hover { background-color: #0056b3; }
+    </style>
+</head>
+
+<body>
+    <h1> Book List </h1>
+    <ul> 
+        {% for book in books %}
+        <li> 
+            <strong>{{book.title}}</strong> by {{book.author}} ({{book.publication_year}})
+            {% comment %}
+                These links are conditionally displayed based on user permissions
+                using the 'perms' template variable.
+            {% endcomment %}
+
+            {% if perms.bookshelf.can_edit %}
+                - <a href="{% url 'book_edit' book.pk}" class="button">Edit</a>
+            {% endif %}
+            {% if perms.bookshelf.can_delete %}
+                -<a href="{% url 'book_delete' book.pk}" class="button">Delete</a>
+            {% endif %}
+        </li>
+        {% empty %}
+            <li>No books available.</li>
+        {% endfor %}
+    </ul>
+    {% comment %} Only show the "Add New Book" link if the user can create books {% endcomment %}
+    {% if perms.bookshelf.can_create %}
+        <p><a href="{% url 'book_create' %}" class="button">Add New Book</a></p>
+    {% endif %}
+    <p><a href="{% url 'admin:logout' %}">Logout</a></p> {# Simple logout link #}
+</body>
+</html>
