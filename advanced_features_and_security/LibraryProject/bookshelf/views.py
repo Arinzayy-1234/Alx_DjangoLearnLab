@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseForbidden
 from . models import Book
-from . forms import BookForm, ExampleForm
+from .forms import ExampleForm,BookForm
 
 # Create your views here.
 # ... (imports) ...
