@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-eg-1c5es=kwstx5_=gqm_dho!8gq9wigsf(i29n&ri)5uaoa7#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'relationship_app.apps.RelationshipAppConfig',
     'django_extensions',  # Optional: for additional management commands and features
-    
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware', # Enables Content Security Policy (CSP) headers.
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -133,3 +134,36 @@ AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Security Protections: XSS, Clickjacking, and Content-Type sniffing
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enforce cookies to be sent over HTTPS only
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# What: Ensures the session cookie (which keeps users logged in) is only sent over secure (HTTPS) connections.
+# Why: Prevents session hijacking by protecting the session ID from interception on insecure networks.
+
+
+
+# Content Security Policy (CSP) settings
+# Content Security Policy (CSP) settings - NEW FORMAT for django-csp 4.0+
+# Why: CSP is a powerful defense against XSS by whitelisting allowed content sources.
+# It tells the browser exactly where scripts, images, styles, etc., are allowed to load from,
+# blocking anything else.
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'base-uri': ("'self'",), # Allows base URLs only from current origin
+        'connect-src': ("'self'",), # Restricts AJAX, WebSockets etc. connections to same origin
+        'default-src': ("'self'",), # Fallback for all content types
+        'font-src': ("'self'",), # Restricts font loading to same origin
+        'form-action': ("'self'",), # Forms can only submit to same origin
+        'frame-ancestors': ("'self'",), # Additional Clickjacking protection (page can only be framed by self)
+        'img-src': ("'self'",), # Restricts images to same origin (covers user profile photos served locally)
+        'object-src': ("'none'",), # Disallows <object>, <embed>, <applet> for security
+        'script-src': ("'self'",), # Critical for XSS: only scripts from same origin can execute
+        'style-src': ("'self'",), # Only stylesheets from same origin are allowed
+    }
+}

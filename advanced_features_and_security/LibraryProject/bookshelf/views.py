@@ -5,11 +5,19 @@ from . models import Book
 from . forms import BookForm
 
 # Create your views here.
+# ... (imports) ...
+
+# Secure Data Access: All database interactions (queries, saves, deletes) in this file
+# use Django's Object-Relational Mapper (ORM) and Django Forms.
+# Why: The ORM inherently uses parameterized queries, which prevents SQL Injection attacks
+# by treating all user input as data, not executable code. Django Forms also handle
+# automatic input validation and sanitization.
 
 @login_required # Ensures the user is authenticated
 @permission_required('bookshelf.can_view', raise_exception=True) # Checks for 'can_view' permission
 def book_list(request):
     books = Book.objects.all() # Fetches all Book objects from the database
+     # Uses ORM for secure data retrieval
     # Renders the template, passing the 'books' QuerySet to it
     return render(request, 'bookshelf/book_list.html', {'books': books})
 
