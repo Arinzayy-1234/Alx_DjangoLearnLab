@@ -167,3 +167,18 @@ CONTENT_SECURITY_POLICY = {
         'style-src': ("'self'",), # Only stylesheets from same origin are allowed
     }
 }
+
+# advanced_features_and_security/LibraryProject/LibraryProject/settings.py
+
+# ... (your existing settings like DEBUG, ALLOWED_HOSTS, etc.) ...
+
+# --- PHASE 3, STEP 1: HTTPS & HSTS Configuration ---
+# Objective: Enforce HTTPS connections for all traffic and use HSTS. 
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 31536000
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_PRELOAD = True
