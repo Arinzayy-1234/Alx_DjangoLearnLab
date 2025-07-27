@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseForbidden
 from . models import Book
-from . forms import BookForm
+from . forms import BookForm, ExampleForm
 
 # Create your views here.
 # ... (imports) ...
@@ -58,3 +58,21 @@ def book_create(request):
     else:
         form = BookForm()
         return render(request,'bookshelf/book_form.html', {'form': form, 'action': 'Create'})
+
+
+# NEW: View for ExampleForm
+def example_form_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Process the data (e.g., save to DB, print to console)
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['your_email']
+            print(f"ExampleForm submitted: Name={name}, Email={email}")
+            # For this task, we can just redirect or render a success message
+            return render(request, 'bookshelf/form_example.html', {'form': form, 'message': 'Form submitted successfully!'})
+    else:
+        form = ExampleForm() # Create an empty form for GET requests
+
+    # Pass the form to the template
+    return render(request, 'bookshelf/form_example.html', {'form': form})
