@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'api.apps.ApiConfig'
 ]
 
@@ -122,3 +123,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.TokenAuthentication', # allow token authentication
+        'rest_framework.authentication.SessionAuthentication',#allows Session authentication
+
+    ],
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.IsAuthenticated' , # allow only authenticated users through the door
+    ]
+}
