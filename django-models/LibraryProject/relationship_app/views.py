@@ -4,6 +4,7 @@ from .models import Library
 from django.views.generic import DetailView,CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from django.contrib.auth import login,logout
 
 # Create your views here.
 
@@ -32,4 +33,8 @@ class SignupView(CreateView):
 
     success_url = reverse_lazy('login')
 
+    def form_valid(self, form):
+        return super().form_valid(form)
+        login(self.request, self.object)
+        return response
     
