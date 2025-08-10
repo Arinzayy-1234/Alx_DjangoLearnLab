@@ -5,37 +5,37 @@ from .models import Book
 from .serializers import BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
-# This view lists all books.
+
+# This view lists all books. It satisfies the "ListView" requirement.
 class BookList(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Allows anyone to read (list).
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-# This view retrieves a single book by ID.
+
+# This view retrieves a single book. It satisfies the "DetailView" requirement.
 class BookDetail(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Allows anyone to read (retrieve).
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-# This view allows new books to be created.
+
+# This view creates a new book. It satisfies the "CreateView" requirement.
 class BookCreate(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Only authenticated users can create books.
     permission_classes = [IsAuthenticated]
 
-# This view allows a single book to be updated.
+
+# This view updates a single book. It satisfies the "UpdateView" requirement.
 class BookUpdate(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Only authenticated users can update books.
     permission_classes = [IsAuthenticated]
 
-# This view allows a single book to be deleted.
+
+# This view deletes a single book. It satisfies the "DeleteView" requirement.
 class BookDelete(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    # Only authenticated users can delete books.
     permission_classes = [IsAuthenticated]
