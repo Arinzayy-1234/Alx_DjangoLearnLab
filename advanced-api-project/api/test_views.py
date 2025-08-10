@@ -7,13 +7,11 @@ from django.contrib.auth.models import User
 from .models import Author, Book
 
 
-# APITestCase is a specialized TestCase class for testing DRF APIs.
 class BookAPITests(APITestCase):
 
     def setUp(self):
         """
         Set up the necessary data and a client for testing.
-        This method runs before every single test case.
         """
         # Create a test user for authenticated requests.
         self.user = User.objects.create_user(username='testuser', password='password123')
@@ -49,21 +47,23 @@ class BookAPITests(APITestCase):
         """
         Ensure an authenticated user can create a book.
         """
-        self.client.force_authenticate(user=self.user)
+        # Use self.client.login to authenticate the user.
+        self.client.login(username='testuser', password='password123')
         data = {'title': 'The Hobbit', 'publication_year': 1937, 'author': self.author1.id}
         response = self.client.post(reverse('book-create'), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Book.objects.count(), 5) # Check that the book was added
+        self.assertEqual(Book.objects.count(), 5)
 
     def test_authenticated_user_can_update_book(self):
         """
         Ensure an authenticated user can update a book.
         """
-        self.client.force_authenticate(user=self.user)
+        # Use self.client.login to authenticate the user.
+        self.client.login(username='testuser', password='password123')
         data = {'title': 'Updated Title', 'publication_year': 2000, 'author': self.author1.id}
         response = self.client.put(reverse('book-update', args=[self.book1.id]), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.book1.refresh_from_db() # Refresh the object from the database
+        self.book1.refresh_from_db()
         self.assertEqual(self.book1.title, 'Updated Title')
 
 
